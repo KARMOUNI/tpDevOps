@@ -1,0 +1,36 @@
+version: '3.7'
+
+services:
+  backend:
+    build:
+      context: ./BACK
+    networks:
+      - my-network
+    depends_on:
+      - database
+
+  database:
+    build: ./Database
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: pg_database
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - my-network
+
+  httpd:
+    build: ./Front
+    ports:
+      - "80:80"
+    networks:
+      - my-network
+    depends_on:
+      - backend
+
+networks:
+  my-network:
+
+volumes:
+  db_data:
