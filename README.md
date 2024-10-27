@@ -1,11 +1,14 @@
 # tpDevOps 3-Tier Web Application 
 Ce dépôt montre la configuration d'une application web en architecture 3-tiers utilisant Docker, comprenant un serveur HTTP, une API backend et une base de données PostgreSQL. Chaque composant est conteneurisé et géré à l'aide de Docker et Docker Compose.
+
 ❓Question : Pourquoi devons-nous exécuter le conteneur avec le flag -e pour fournir des variables d'environnement ?
 
  Exécuter le conteneur avec le flag -e pour fournir des variables d'environnement est essentiel, car cela permet de transmettre de manière sécurisée et dynamique les données de configuration nécessaires, comme les informations de connexion à la base de données (par exemple, POSTGRES_DB, POSTGRES_USER et POSTGRES_PASSWORD), directement au conteneur au moment de l'exécution. Cela évite de coder en dur des informations sensibles dans le Dockerfile ou le code de l'application, ce qui améliore la sécurité et la flexibilité. En utilisant des variables d'environnement, nous pouvons facilement ajuster les configurations pour différents environnements (développement, test, production) sans modifier l'image du conteneur elle-même, ce qui rend la configuration plus portable et facile à gérer.
+ 
  ❓Question : Pourquoi avons-nous besoin d'attacher un volume à notre conteneur PostgreSQL ?
 
   Attacher un volume au conteneur PostgreSQL est essentiel pour la persistance des données. Lorsque vous exécutez un conteneur, toutes les données stockées dans le système de fichiers du conteneur seront perdues si celui-ci s'arrête, plante ou est supprimé. En attachant un volume, vous vous assurez que les données de la base de données sont stockées sur la machine hôte, plutôt que dans le stockage temporaire du conteneur. Ainsi, même si le conteneur est recréé ou arrêté, les données restent intactes et peuvent être accessibles lorsque le conteneur redémarre, ce qui est essentiel pour maintenir un stockage de données cohérent et fiable dans un environnement de base de données.
+  
   ❓ 1-1 Documentation des éléments essentiels pour le conteneur de base de données : Commandes et Dockerfile
      Voici le Dockerfile pour configurer un conteneur PostgreSQL :
 
